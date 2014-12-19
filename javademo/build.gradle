@@ -1,0 +1,40 @@
+apply plugin: 'java'
+
+version = '1.0'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['otherSource/main/java', 'job/main/java']
+        }
+    }
+}
+
+ext {
+    mainClass = "demo.gradle.SampleJava"
+}
+task runMe(type: JavaExec, dependsOn: 'classes') {
+    main = mainClass
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+archivesBaseName = "sample-java"
+
+//self executable jar
+jar {
+    manifest {
+        attributes(
+                "Main-Class": mainClass,
+                "Implementation-Version": version
+        )
+    }
+}
+
+repositories.mavenCentral()
+dependencies {
+    compile 'org.quartz-scheduler:quartz:2.1.5'
+}
+
+apply plugin: 'application'
+applicationName = "Java project with application plugin"
+mainClassName = "demo.gradle.quartz.SchedulerMain"

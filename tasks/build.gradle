@@ -1,0 +1,53 @@
+task myTask1
+task "myTask2"
+task(myTask3)
+task("myTask4")
+
+task myTask5 << {
+    group "My Task"
+    println "Hello from myTask5"
+}
+
+task(myTask6) << {
+    group "My Task"
+    println "Hello from myTask6"
+}
+
+tasks.create("myTask7") << {
+    group "My Task"
+    println "Hello from myTask7"
+}
+
+task('myCopy', type: Copy) << {
+    group "Extended"
+    from(file('test'))
+    into(buildDir)
+}
+
+task clean(type: Delete, dependsOn: myTask7) {
+    group "Extended"
+    delete(buildDir)
+}
+
+task yourCopy(type: Copy) << {
+    group "Extended"
+    description "Your copy task description"
+    from(file('test'))
+    into(buildDir)
+}
+
+task hisCopy(type: Copy)
+
+hisCopy << {
+    group "Extended"
+    println "From HisCopy task"
+    from(file('test'))
+    into(buildDir)
+}
+
+myTask7.dependsOn myTask5, myTask6
+
+myTask5.dependsOn myTask6
+
+println myTask5.name
+println project.myTask6.name

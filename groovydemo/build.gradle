@@ -1,0 +1,20 @@
+apply plugin: 'groovy'
+version = '1.0'
+
+repositories.jcenter()
+
+dependencies {
+    compile localGroovy()
+//    compile 'org.codehaus.groovy:groovy-all:2.3.6'
+}
+
+apply plugin: 'application'
+mainClassName = "demo.gradle.groovy.SampleGroovy"
+
+run.doFirst {
+    println "Executing main class......"
+}
+
+run.doLast {
+    println "Finished executing main class......"
+}

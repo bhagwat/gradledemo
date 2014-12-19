@@ -1,0 +1,8 @@
+rootProject.name = 'multiproj'
+
+include 'domain'
+
+include 'utils'
+
+include 'webapp'
+
